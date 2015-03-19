@@ -88,12 +88,12 @@ while True:
 				Hours = 0
 				while MM > 59:
 					MM -= 60
-					Hours +=1
-				print(str(SS) + ":" + str(MM) + ":" + str(Hours))
+				ScreenText(screen,str(Hours) + ":" + str(MM) + ":" + str(SS),0,HEIGHT/4,(255,255,255),150)
+	
 			else:
-				print(str(SS) + ":" + str(Minutes))
+				ScreenText(screen,str(Minutes) + ":" + str(SS),0,HEIGHT/4,(255,255,255),150)
 		if Seconds < 60:
-			print(Seconds)
+			ScreenText(screen,str(Seconds),0,HEIGHT/4,(255,255,255),150)
 	
 
 	#checking for button updates:

@@ -96,6 +96,26 @@ while True:
 				ScreenText(screen,str(Minutes) + ":" + str(SS),0,HEIGHT/4,(255,255,255),150)
 		if Seconds < 60:
 			ScreenText(screen,str(Seconds),0,HEIGHT/4,(255,255,255),150)
+
+	if Place == "countdown":
+
+		if Seconds > 59:
+			SS = Seconds
+			Minutes = 0
+			while SS > 59:
+				SS -= 60
+				Minutes +=1
+			if Minutes > 59:
+				MM = Minutes
+				Hours = 0
+				while MM > 59:
+					MM -= 60
+				ScreenText(screen,str(Hours) + ":" + str(MM) + ":" + str(SS),0,0,(255,255,255),300)
+	
+			else:
+				ScreenText(screen,str(Minutes) + ":" + str(SS),0,0,(255,255,255),300)
+		if Seconds < 60:
+			ScreenText(screen,str(Seconds),0,0,(255,255,255),300)
 	
 
 	#checking for button updates:

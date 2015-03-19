@@ -19,6 +19,7 @@ def ScreenText(screen,text="TEXT GOES HERE",X=0,Y=0,color=(0,0,0),size=25,Letter
 
 #defining classes
 class Button:
+
 	def __init__(self):
 		self.pressed = False
 	def display(self,X,Y,X2,Y2,BColor,MouseX,MouseY,MouseDown):
@@ -41,9 +42,17 @@ class Button:
 
 add = Button()
 subtract = Button()
+start = Button()
+
 MouseX = 0
 MouseY = 0
+Place = "menu"
+print(HEIGHT)
+Seconds = 0
 while True:
+
+	recta((0,0,0),0,0,WIDTH,HEIGHT)
+
 	#setting variables in loop
 	MouseDown = False
 
@@ -55,17 +64,46 @@ while True:
 			MouseY = pygame.mouse.get_pos()[1]
 		if event.type == QUIT:
 			sys.exit()
+		if event.type == KEYDOWN:
+			if event.key == K_UP:
+				Seconds += 1
+			if event.key == K_DOWN:
+				Seconds -= 1
 
 	#displaying stage 1/2
 
-	add.display(0,0,WIDTH,HEIGHT/4,(50,255,0),MouseX,MouseY,MouseDown)
-	subtract.display(0,HEIGHT-HEIGHT/4,WIDTH,HEIGHT,(255,0,0),MouseX,MouseY,MouseDown)
+	if Place == "menu":
+		add.display(0,0,WIDTH,HEIGHT/4,(50,255,0),MouseX,MouseY,MouseDown)
+		subtract.display(0,HEIGHT-HEIGHT/4,WIDTH,HEIGHT,(255,0,0),MouseX,MouseY,MouseDown)
+		start.display(WIDTH-WIDTH/5,HEIGHT/4,WIDTH,HEIGHT/4*2,(255,255,0),MouseX,MouseY,MouseDown)
+
+		if Seconds > 59:
+			SS = Seconds
+			Minutes = 0
+			while SS > 59:
+				SS -= 60
+				Minutes +=1
+			if Minutes > 59:
+				MM = Minutes
+				Hours = 0
+				while MM > 59:
+					MM -= 60
+					Hours +=1
+				print(str(SS) + ":" + str(MM) + ":" + str(Hours))
+			else:
+				print(str(SS) + ":" + str(Minutes))
+		if Seconds < 60:
+			print(Seconds)
+	
 
 	#checking for button updates:
-	if add.check() == True:
-		print("click")
-	if subtract.check() == True:
-		print("click2")
+	if Place == "menu":
+		if start.check():
+			Place = "countdown"
+		if add.check() == True:
+			Seconds += 1
+		if subtract.check() == True:
+			Seconds -= 1
 
 	#action catching stage 2/2
 

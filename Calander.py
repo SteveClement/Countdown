@@ -116,12 +116,22 @@ while True:
 				ScreenText(screen,str(Minutes) + ":" + str(SS),0,0,(255,255,255),300)
 		if Seconds < 60:
 			ScreenText(screen,str(Seconds),0,0,(255,255,255),300)
+			
+		if Startnow:
+			times = time.time()
+			Startnow = False
+		if ((time.time() - times) - Seconds) * -1:
+			if Seconds > 0:
+				Seconds -= 1
+			else:
+				Place = "menu"
 	
 
 	#checking for button updates:
 	if Place == "menu":
 		if start.check():
 			Place = "countdown"
+			Startnow = True
 		if add.check() == True:
 			Seconds += 1
 		if subtract.check() == True:

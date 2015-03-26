@@ -11,6 +11,7 @@ HEIGHT = int(Info.current_h / zoom)
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
 #defining functions
+
 def recta(color,X,Y,X2,Y2):
 	pygame.draw.rect(screen, color, (X, Y, X2, Y2))
 
@@ -45,6 +46,7 @@ class Button:
 add = Button()
 subtract = Button()
 start = Button()
+restart = Button()
 
 MouseX = 0
 MouseY = 0
@@ -90,12 +92,12 @@ while True:
 				Hours = 0
 				while MM > 59:
 					MM -= 60
-				ScreenText(screen,str(Hours) + ":" + str(MM) + ":" + str(SS),0,HEIGHT/4,(255,255,255),150)
+				ScreenText(screen,str(Hours) + ":" + str(MM) + ":" + str(int(SS)),0,HEIGHT/4,(255,255,255),150)
 	
 			else:
-				ScreenText(screen,str(Minutes) + ":" + str(SS),0,HEIGHT/4,(255,255,255),150)
+				ScreenText(screen,str(Minutes) + ":" + str(int(SS)),0,HEIGHT/4,(255,255,255),150)
 		if Seconds < 60:
-			ScreenText(screen,str(Seconds),0,HEIGHT/4,(255,255,255),150)
+			ScreenText(screen,str(int(Seconds)),0,HEIGHT/4,(255,255,255),150)
 
 	if Place == "countdown":
 
@@ -110,21 +112,27 @@ while True:
 				Hours = 0
 				while MM > 59:
 					MM -= 60
-				ScreenText(screen,str(Hours) + ":" + str(MM) + ":" + str(SS),0,0,(255,255,255),300)
+				ScreenText(screen,str(Hours) + ":" + str(MM) + ":" + str(int(SS)),0,0,(255,255,255),300)
 	
 			else:
-				ScreenText(screen,str(Minutes) + ":" + str(SS),0,0,(255,255,255),300)
+				ScreenText(screen,str(Minutes) + ":" + str(int(SS)),0,0,(255,255,255),300)
 		if Seconds < 60:
-			ScreenText(screen,str(Seconds),0,0,(255,255,255),300)
+			ScreenText(screen,str(int(Seconds)),0,0,(255,255,255),300)
 			
 		if Startnow:
 			times = time.time()
 			Startnow = False
-		if ((time.time() - times) - Seconds) * -1:
-			if Seconds > 0:
-				Seconds -= 1
-			else:
-				Place = "menu"
+			SS = Seconds
+		if Seconds > 0:
+			Seconds = ((time.time() - times) - SS) * -1
+		if Seconds < 0.1:
+			Place = "stop"
+
+	if Place == "stop":
+		ScreenText(screen,"TIME IS UP",X=0,Y=0,color=(255,0,0),size=155,Letter = "monospace")
+		
+		
+
 	
 
 	#checking for button updates:
